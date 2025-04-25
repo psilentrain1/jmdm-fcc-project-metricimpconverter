@@ -21,10 +21,23 @@ suite('Unit Tests', function(){
     assert.equal(convertHandler.getNum('175.4lbs'), '175.4', '175.4lbs should equal 175.4');
     assert.equal(convertHandler.getNum('123.4kg'), '123.4', '123.4kg should equal 123.4');
   });
-  test('convertHandler should correctly read a fractional input', function(){});
-  test('convertHandler should correctly read a fractional input with a decimal', function(){});
-  test('convertHandler should correctly return an error on a double-fraction (i.e. 3/2/3)', function(){});
-  test('convertHandler should correctly default to a numerical input of 1 when no numerical input is provided', function(){});
+  test('convertHandler should correctly read a fractional input', function(){
+    assert.equal(convertHandler.getNum('1/2gal'), '0.5', '1/2gal should equal 0.4');
+    assert.equal(convertHandler.getNum('1/4mi'), '0.25', '1/4mi should equal 0.25');
+  });
+  test('convertHandler should correctly read a fractional input with a decimal', function(){
+    assert.equal(convertHandler.getNum('2.5/5L'), '0.5', '2.5/5L should equal 0.5');
+    assert.equal(convertHandler.getNum('5.8/8kg'), '0.725', '5.8/8kg should equal 0.725');
+  });
+  test('convertHandler should correctly return an error on a double-fraction (i.e. 3/2/3)', function(){
+    assert.equal(convertHandler.getNum('3/3/5mi'), 'invalid number', '3/3/5mi should equal invalid number');
+    assert.equal(convertHandler.getNum('1//2mi'), 'invalid number', '1//2mi should equal invalid number');
+  });
+  test('convertHandler should correctly default to a numerical input of 1 when no numerical input is provided', function(){
+    assert.equal(convertHandler.getNum('gal'), '1', 'gal should equal 1');
+    assert.equal(convertHandler.getNum('L'), '1', 'L should equal 1');
+    assert.equal(convertHandler.getNum('mi'), '1', 'mi should equal 1');
+  });
   test('convertHandler should correctly read each valid input unit', function(){
     assert.equal(convertHandler.getUnit('25gal'), 'gal', '25gal should equal gal');
     assert.equal(convertHandler.getUnit('15L'), 'L', '15L should equal L');
