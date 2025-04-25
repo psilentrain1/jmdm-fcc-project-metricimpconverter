@@ -3,7 +3,7 @@ function ConvertHandler() {
   this.getNum = function(input) {
     const string = input.split(/[a-zA-Z]+/)[0]
     const number = Number(string)
-    if (string.matchAll('/').length ) return 'invalid number';
+    if (string.match(/\//g) && string.match(/\//g).length > 1 ) return 'invalid number';
     if (string === "") return 1;
     if (isNaN(number)) return parseFloat(eval(string).toFixed(5));
     return parseFloat(number.toFixed(5));
@@ -46,12 +46,12 @@ function ConvertHandler() {
     const lbsToKg = 0.453592;
     const miToKm = 1.60934;
 
-    if (initUnit.toLowerCase() === 'gal') return initNum * galToL;
-    if (initUnit.toLowerCase() === 'l') return initNum / galToL;
-    if (initUnit.toLowerCase() === 'lbs') return initNum * lbsToKg;
-    if (initUnit.toLowerCase() === 'kg') return initNum / lbsToKg;
-    if (initUnit.toLowerCase() === 'mi') return initNum * miToKm;
-    if (initUnit.toLowerCase() === 'km') return initNum / miToKm;
+    if (initUnit.toLowerCase() === 'gal') return parseFloat((initNum * galToL).toFixed(5));
+    if (initUnit.toLowerCase() === 'l') return parseFloat((initNum / galToL).toFixed(5));
+    if (initUnit.toLowerCase() === 'lbs') return parseFloat((initNum * lbsToKg).toFixed(5));
+    if (initUnit.toLowerCase() === 'kg') return parseFloat((initNum / lbsToKg).toFixed(5));
+    if (initUnit.toLowerCase() === 'mi') return parseFloat((initNum * miToKm).toFixed(5));
+    if (initUnit.toLowerCase() === 'km') return parseFloat((initNum / miToKm).toFixed(5));
   };
   
   this.getString = function(initNum, initUnit, returnNum, returnUnit) {
