@@ -16,7 +16,7 @@ function ConvertHandler() {
     for (let i = 0; i < units.length; i++) {
       if (unit.toLowerCase().includes(units[i]) && units[i] !== 'l') {
         return units[i];
-      } else if (unit.toLowerCase().includes(units[i]) && units[i] === 'l') {
+      } else if (unit.toLowerCase().includes(units[i]) && units[i] === 'l' && unit.toLowerCase().match(/l$/g)) {
         return 'L';
       } 
     }
@@ -30,6 +30,7 @@ function ConvertHandler() {
     if (initUnit.toLowerCase() === 'kg') return 'lbs';
     if (initUnit.toLowerCase() === 'mi') return 'km';
     if (initUnit.toLowerCase() === 'km') return 'mi';
+    return 'invalid unit'
   };
 
   this.spellOutUnit = function(unit) {
@@ -52,9 +53,13 @@ function ConvertHandler() {
     if (initUnit.toLowerCase() === 'kg') return parseFloat((initNum / lbsToKg).toFixed(5));
     if (initUnit.toLowerCase() === 'mi') return parseFloat((initNum * miToKm).toFixed(5));
     if (initUnit.toLowerCase() === 'km') return parseFloat((initNum / miToKm).toFixed(5));
+    return 'invalid number'
   };
   
   this.getString = function(initNum, initUnit, returnNum, returnUnit) {
+    if (initNum === 'invalid number' && initUnit === 'invalid unit') return 'invalid number and unit';
+    if (initNum === 'invalid number') return 'invalid number';
+    if (initUnit === 'invalid unit') return 'invalid unit';
     return `${initNum} ${this.spellOutUnit(initUnit)} converts to ${returnNum} ${this.spellOutUnit(returnUnit)}`;
   };
   
