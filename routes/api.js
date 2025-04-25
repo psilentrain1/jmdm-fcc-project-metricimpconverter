@@ -20,12 +20,20 @@ module.exports = function (app) {
       returnUnit,
     );
 
-    res.json({
+    if (initNum === 'invalid number' && initUnit === 'invalid unit') {
+      res.json('invalid number and unit')
+    } else if (initNum === 'invalid number') {
+      res.json('invalid number')
+    } else if (initUnit === 'invalid unit') {
+      res.json('invalid unit')
+    } else {
+      res.json({
       initNum: initNum,
       initUnit: initUnit,
       returnNum: returnNum,
       returnUnit: returnUnit,
       string: toString,
     });
+    }
   });
 };
